@@ -1,0 +1,16 @@
+[
+    {
+        "model": "mcclassicsapi.projects",
+        "pk": 1,
+        "fields": {
+            "gear_head": 1,
+            "title": "Rambler Build",
+            "start_date": "2022-03-10",
+            "image": "../imgs/1964-rambler-american-440-h-2-door-coupe-3.jpg",
+            "details": "Im never going to financially recover from this",
+            "make": "AMC",
+            "model": "Rambler 440",
+            "year": 1964
+        }
+    }
+]
