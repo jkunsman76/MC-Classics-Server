@@ -1,0 +1,10 @@
+[
+    {
+        "model": "mcclassicsapi.eventattendees",
+        "pk": 1,
+        "fields": {
+            "gear_head": 1,
+            "event": 1
+        }
+    }
+]

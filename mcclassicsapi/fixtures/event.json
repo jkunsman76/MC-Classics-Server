@@ -1,0 +1,13 @@
+[
+    {
+        "model": "mcclassicsapi.event",
+        "pk": 1,
+        "fields": {
+            "type": "Swap Meet",
+            "creator": 1,
+            "description": "Swap meet in Dickson, all brands welcome",
+            "date": "2022-04-09",
+            "time":"09:00"
+        }
+    }
+]

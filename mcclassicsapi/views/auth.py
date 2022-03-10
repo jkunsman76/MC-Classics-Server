@@ -1,7 +1,7 @@
-
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
 from rest_framework.authtoken.models import Token
+from rest_framework.permissions import IsAdminUser
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
@@ -13,6 +13,7 @@ from mcclassicsapi.models import GearHead
 @permission_classes([AllowAny])
 def login_user(request):
     '''Handles the authentication of a GearHead
+    
     Method arguments:
       request -- The full HTTP request object
     '''
@@ -22,13 +23,18 @@ def login_user(request):
     # Use the built-in authenticate method to verify
     # authenticate returns the user object or None if no user is found
     authenticated_user = authenticate(username=username, password=password)
+    
+    what_is_this = IsAdminUser()
+    print(what_is_this)
 
     # If authentication was successful, respond with their token
     if authenticated_user is not None:
         token = Token.objects.get(user=authenticated_user)
         data = {
             'valid': True,
-            'token': token.key
+            'token': token.key,
+            "is_staff": authenticated_user.is_staff,
+            'userId': authenticated_user.id
         }
         return Response(data,status.HTTP_201_CREATED)
     else:
@@ -65,5 +71,5 @@ def register_user(request):
     # Use the REST Framework's token generator on the new user account
     token = Token.objects.create(user=gearhead.user)
     # Return the token to the client
-    data = { 'token': token.key }
+    data = { 'token': token.key, "is_staff": False, 'userId': gearhead.id }
     return Response(data,status.HTTP_201_CREATED)
