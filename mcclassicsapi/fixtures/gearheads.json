@@ -1,0 +1,11 @@
+[
+    {
+        "model": "mcclassicsapi.gearhead",
+        "pk": 1,
+        "fields": {
+            "user": 1,
+            "bio": "Me",
+            "profile_img": "../imgs/IMG_0021.JPG"
+        }
+    }
+]
