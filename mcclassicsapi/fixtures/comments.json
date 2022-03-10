@@ -1,0 +1,12 @@
+[
+    {
+        "model": "mcclassicsapi.comments",
+        "pk": 1,
+        "fields": {
+            "project": 1,
+            "author": 1,
+            "content": "test comment, me commenting on my own post"
+           
+        }
+    }
+]

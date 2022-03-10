@@ -16,3 +16,4 @@ class CreateUserSerializer(serializers.Serializer):
     last_name = serializers.CharField()
     email = serializers.CharField()
     date_joined = serializers.DateField()
+    
