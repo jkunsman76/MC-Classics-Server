@@ -7,7 +7,7 @@ class CommentsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Comments
         fields = ('id', 'content', 'project', 'author')
-        depth = 2
+        depth = 1
 
 
 class CreateCommentSerializer(serializers.ModelSerializer):

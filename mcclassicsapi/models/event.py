@@ -11,6 +11,7 @@ class Event(models.Model):
     attendees = models.ManyToManyField("GearHead", through="EventAttendees", related_name="attending")
     @property
     def joined(self):
+        """join event"""
         return self.__joined
 
     @joined.setter

@@ -2,3 +2,5 @@ from .user_serializer import UserSerializer, CreateUserSerializer
 from .event_serializer import EventSerializer, CreateEventSerializer
 from .gearhead_serializer import GearHeadSerializer
 from .comments_serializer import CommentsSerializer, CreateCommentSerializer
+from .help_serializer import HelpSerializer, CreateHelpSerializer
+from .project_serializer import ProjectSerializer, CreateProjectSerializer

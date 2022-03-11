@@ -29,7 +29,7 @@ class EventView(ViewSet):
         try:
             serializer = CreateEventSerializer(data=request.data)
             serializer.is_valid(raise_exception=True)
-            serializer.save(organizer=gear_head)
+            serializer.save(creator=gear_head)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         except ValidationError as ex:
             return Response({'message': ex.args[0]}, status=status.HTTP_400_BAD_REQUEST)
