@@ -5,5 +5,5 @@ from mcclassicsapi.models import GearHead
 class GearHeadSerializer(serializers.ModelSerializer):
     class Meta:
         model = GearHead
-        fields = ('bio', 'profile_image', 'user')
+        fields = ('id','bio', 'profile_img', 'user')
         depth = 1

@@ -17,3 +17,4 @@ class CreateEventSerializer(serializers.ModelSerializer):
         model = Event
         fields = ['type', 'creator',
           'description', 'date', 'time']
+        
