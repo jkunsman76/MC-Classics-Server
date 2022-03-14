@@ -7,7 +7,7 @@ class Projects(models.Model):
     gear_head = models.ForeignKey('GearHead', on_delete=models.CASCADE)
     title = models.CharField(max_length=255)
     start_date = models.DateTimeField(auto_now_add=True)
-    image = models.URLField(default=None)
+    image = models.URLField(default=None, max_length=1000)
     details = models.TextField()
     make = models.TextField()
     model = models.TextField()
