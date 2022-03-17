@@ -3,7 +3,9 @@ from django.core.exceptions import ValidationError
 from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from rest_framework import status
-
+import uuid
+import base64
+from django.core.files.base import ContentFile
 from mcclassicsapi.serializers import ProjectSerializer, CreateProjectSerializer
 from mcclassicsapi.models import Projects, GearHead
 
@@ -16,7 +18,7 @@ class ProjectsView(ViewSet):
         serializer = ProjectSerializer(projects, many=True)
         return Response(serializer.data)
     
-    def retrive(self,request, pk):
+    def retrieve(self,request, pk):
         """retrive requested project"""
         try:
             project= Projects.objects.get(pk=pk)
@@ -31,23 +33,24 @@ class ProjectsView(ViewSet):
         try:
             serializer = CreateProjectSerializer(data=request.data)
             serializer.is_valid(raise_exception=True)
-            serializer.save(gear_head=gear_head)
+            format, imgstr = request.data["image"].split(';base64,')
+            ext = format.split('/')[-1]
+            data = ContentFile(base64.b64decode(imgstr), name=f'{request.data["title"]}-{uuid.uuid4()}.{ext}')
+            serializer.save(gear_head=gear_head, image=data)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         except ValidationError as ex:
             return Response({'message': ex.args[0]}, status=status.HTTP_400_BAD_REQUEST)
         
     def update(self, request, pk):
         """update projects"""
-        project = Projects.objects.get(pk=pk)
-        project.title = request.data["title"]
-        project.make = request.data["make"]
-        project.model = request.data["model"]
-        project.year = request.data["year"]
-        project.image = request.data["image"]
-        project.details = request.data["details"]
-        project.save()
-        
-        return Response(None, status=status.HTTP_204_NO_CONTENT)
+        try:
+            project = Projects.objects.get(pk=pk)
+            serializer = CreateProjectSerializer(project, data=request.data)
+            serializer.is_valid(raise_exception=True)
+            serializer.save()
+            return Response(None, status=status.HTTP_204_NO_CONTENT)
+        except ValidationError as ex:
+            return Response({'message': ex.args[0]}, status=status.HTTP_400_BAD_REQUEST)
         
     def destroy(self, request, pk):
         """delete project"""
