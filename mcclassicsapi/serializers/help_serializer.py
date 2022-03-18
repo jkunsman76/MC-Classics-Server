@@ -6,7 +6,7 @@ class HelpSerializer(serializers.ModelSerializer):
     class Meta:
         model = Help
         fields = ('id', 'content', 'project', 'author')
-        depth = 1
+        depth = 2
 
 
 class CreateHelpSerializer(serializers.ModelSerializer):
