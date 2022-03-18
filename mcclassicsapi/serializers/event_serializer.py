@@ -10,7 +10,7 @@ class EventSerializer(serializers.ModelSerializer):
         fields = ('id', 'type', 'creator',
           'description', 'date', 'time', 'attendees',
           'joined')
-        depth = 1
+        depth = 2
          
 class CreateEventSerializer(serializers.ModelSerializer):
     class Meta:
