@@ -1,10 +1,10 @@
 from django.http import HttpResponseServerError
 from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
+from rest_framework.decorators import action
 from rest_framework import status
 from mcclassicsapi.models import Help, GearHead, Projects
 from mcclassicsapi.serializers import HelpSerializer, CreateHelpSerializer
-
 
 class HelpView(ViewSet):
     """MC classics Help view"""
@@ -58,4 +58,11 @@ class HelpView(ViewSet):
         hlp = Help.objects.get(pk=pk)
         hlp.delete()
         return Response(None, status=status.HTTP_204_NO_CONTENT)
-    
+    @action(methods=['get'], detail=False)
+    def usersrequests(self, request):
+        """Gets the current user at http://localhost:8000/help/usersrequests"""
+        requests = Help.objects.all()
+        user=request.auth.user.id
+        requests = requests.filter(author__id=user)
+        serializer = HelpSerializer(requests, many=True)
+        return Response(serializer.data)

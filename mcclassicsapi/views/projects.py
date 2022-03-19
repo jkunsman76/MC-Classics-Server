@@ -6,6 +6,7 @@ from rest_framework import status
 import uuid
 import base64
 from django.core.files.base import ContentFile
+from rest_framework.decorators import action
 from mcclassicsapi.serializers import ProjectSerializer, CreateProjectSerializer
 from mcclassicsapi.models import Projects, GearHead
 
@@ -57,3 +58,13 @@ class ProjectsView(ViewSet):
         project = Projects.objects.get(pk=pk)
         project.delete()
         return Response(None, status=status.HTTP_204_NO_CONTENT)
+    
+    @action(methods=['get'], detail=False)
+    def usersprojects(self, request):
+        """Gets the current user at http://localhost:8000/projects/usersprojects"""
+        projects = Projects.objects.all()
+        user=request.auth.user.id
+        projects = projects.filter(gear_head__id=user)
+        serializer = ProjectSerializer(projects, many=True)
+        return Response(serializer.data)
+    
