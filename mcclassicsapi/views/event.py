@@ -12,6 +12,8 @@ class EventView(ViewSet):
         """Retrive Event"""
         try:
             event= Event.objects.get(pk=pk)
+            gear_head = GearHead.objects.get(user=request.auth.user)
+            event.joined = gear_head in event.attendees.all()
             serializer= EventSerializer(event)
             return Response(serializer.data)
         except  Event.DoesNotExist as ex:
@@ -20,8 +22,12 @@ class EventView(ViewSet):
     def list(self, request):
         """ list all events"""
         events=Event.objects.all()
+        gear_head = GearHead.objects.get(user=request.auth.user)
+        for event in events:
+            event.joined = gear_head in event.attendees.all()
         serializer = EventSerializer(events, many=True)
         return Response(serializer.data)
+    
     @action(methods=['get'], detail=False)
     def usersevents(self, request):
         """Gets the current user at http://localhost:8000/events/usersevents"""
