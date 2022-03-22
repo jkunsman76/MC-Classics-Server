@@ -8,7 +8,6 @@ from mcclassicsapi.models import GearHead
 from mcclassicsapi.serializers import GearHeadSerializer, UserSerializer
 
 
-# TODO bangazon api profile has edit for user. need to get the django user in client instead of nesting it
 class ProfileView(ViewSet):
     def list(self, request):
         """list all gearheads"""
@@ -28,7 +27,6 @@ class ProfileView(ViewSet):
         try:
             gear_head = GearHead.objects.get(pk=pk)
             gear_head.bio = request.data['bio']
-            gear_head.profile_img= request.data['profile_img']
             user = request.auth.user
             user.username=request.data['username']
             user.first_name=request.data['first_name']

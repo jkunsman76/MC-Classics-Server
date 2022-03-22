@@ -62,9 +62,8 @@ class ProjectsView(ViewSet):
     @action(methods=['get'], detail=False)
     def usersprojects(self, request):
         """Gets the current user at http://localhost:8000/projects/usersprojects"""
-        projects = Projects.objects.all()
-        user=request.auth.user.id
-        projects = projects.filter(gear_head__id=user)
+        gear_head= GearHead.objects.get(user=request.auth.user)
+        projects = Projects.objects.filter(gear_head_id=gear_head.id)
         serializer = ProjectSerializer(projects, many=True)
         return Response(serializer.data)
     

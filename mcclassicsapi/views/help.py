@@ -61,8 +61,7 @@ class HelpView(ViewSet):
     @action(methods=['get'], detail=False)
     def usersrequests(self, request):
         """Gets the current user at http://localhost:8000/help/usersrequests"""
-        requests = Help.objects.all()
-        user=request.auth.user.id
-        requests = requests.filter(author__id=user)
+        gear_head= GearHead.objects.get(user=request.auth.user)
+        requests = Help.objects.filter(gear_head_id=gear_head.id)
         serializer = HelpSerializer(requests, many=True)
         return Response(serializer.data)

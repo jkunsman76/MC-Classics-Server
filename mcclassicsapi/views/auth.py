@@ -64,7 +64,6 @@ def register_user(request):
     # Now save the extra info in the mcclassicsapi_gearhead table
     gearhead = GearHead.objects.create(
         bio=request.data['bio'],
-        profile_img=request.data['profile_img'],
         user=new_user
     )
 
