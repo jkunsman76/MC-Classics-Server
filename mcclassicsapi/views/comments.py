@@ -41,7 +41,6 @@ class CommentsView(ViewSet):
         """ create new comment"""
         project = Projects.objects.get(pk=request.data['project'])
         gearhead = GearHead.objects.get(user_id=request.auth.user_id)
-
         serializer = CreateCommentSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save(author=gearhead, project=project)
@@ -59,4 +58,6 @@ class CommentsView(ViewSet):
         comment = Comments.objects.get(pk=pk)
         comment.delete()
         return Response(None, status=status.HTTP_204_NO_CONTENT)
+    
+
     
