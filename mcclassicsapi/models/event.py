@@ -8,6 +8,7 @@ class Event(models.Model):
     description = models.TextField()
     date = models.DateTimeField()
     attendees = models.ManyToManyField("GearHead", through="EventAttendees", related_name="attending")
+    
     @property
     def joined(self):
         """join event"""
