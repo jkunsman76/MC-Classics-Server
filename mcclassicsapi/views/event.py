@@ -31,9 +31,8 @@ class EventView(ViewSet):
     @action(methods=['get'], detail=False)
     def usersevents(self, request):
         """Gets the current user at http://localhost:8000/events/usersevents"""
-        events = Event.objects.all()
-        user=request.auth.user.id
-        events = events.filter(creator__id=user)
+        gear_head= GearHead.objects.get(user=request.auth.user)
+        events = Event.objects.filter(creator_id=gear_head.id)
         serializer = EventSerializer(events, many=True)
         return Response(serializer.data)
     

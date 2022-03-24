@@ -9,7 +9,7 @@ class ProjectSerializer(serializers.ModelSerializer):
         model = Projects
         fields = ('id','title', 'start_date', 'image', 'details', 'make',
                   'model', 'year', 'gear_head')
-        depth = 1
+        depth = 2
 
 
 class CreateProjectSerializer(serializers.ModelSerializer):
