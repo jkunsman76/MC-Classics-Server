@@ -38,3 +38,11 @@ class ProfileView(ViewSet):
         except ValidationError as ex:
             return Response({'message': ex.args[0]}, status=status.HTTP_400_BAD_REQUEST)
         
+    def destroy(self, request, pk):
+        """bye bye gear_head"""
+        gear_head = GearHead.objects.get(pk=pk)
+        user = User.objects.get(id=request.auth.user.id)
+        gear_head.delete()
+        user.delete()
+        return Response(None, status=status.HTTP_204_NO_CONTENT)
+    
